@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">ShoppingPOS</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_launcher">LauncherActivity</string>
+    <string name="scan_item">Scan Item</string>
+    <string name="offers">Offers</string>
+    <string name="enter_item_name_barcode">Enter Item name/barcode</string>
+    <string name="available_quantity">Available Quantity :</string>
+    <string name="add_to_cart">Add To Cart</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
+    <string name="mrp">MRP:</string>
+    <string name="offer_price">Offer Price :</string>
+    <string name="cart">Cart</string>
+    <string name="proceed_to_pay">Proceed To Pay</string>
+    <string name="your_cart_is_empty">Your Cart is Empty.</string>
+</resources>
