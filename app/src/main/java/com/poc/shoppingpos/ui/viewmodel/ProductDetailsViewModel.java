@@ -34,7 +34,7 @@ public class ProductDetailsViewModel extends AndroidViewModel {
     public ProductDetailsViewModel(@NonNull Application application, DataRepository repository,
                                    final String barcode) {
         super(application);
-        mObservableProduct = repository.searchProductBYBarcode(barcode);
+        mObservableProduct = repository.loadProductByBarcode(barcode);
     }
 
     /**

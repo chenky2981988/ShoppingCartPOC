@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragment.ScanSearchItemFragment">
 
-    <EditText
-        android:id="@+id/search_item_edittext"
+    <com.poc.shoppingpos.utils.CustomAutoCompleteView
+        android:id="@+id/search_item_autocompletetv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -19,6 +19,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:background="@drawable/edittext_border"
         android:padding="10dp"
+        android:completionThreshold="1"
         android:inputType="textAutoComplete|textAutoCorrect"/>
 
 
@@ -31,8 +32,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_item_edittext"
-        android:layout_below="@+id/search_item_edittext" />
+        app:layout_constraintTop_toBottomOf="@+id/search_item_autocompletetv"
+        android:layout_below="@+id/search_item_autocompletetv" />
         <!--app:zxing_scanner_layout="@layout/custom_barcode_scanner" -->/>
 
 </RelativeLayout>

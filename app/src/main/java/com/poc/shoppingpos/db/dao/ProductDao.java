@@ -28,10 +28,15 @@ public interface ProductDao {
     @Query("select * from products where barcode LIKE :barcode")
     LiveData<ProductEntity> loadProductByBarcode(String barcode);
 
+    @Query("select * from products where barcode LIKE :barcode")
+    LiveData<List<ProductEntity>> searchProductByBarcode(String barcode);
+
     @Query("select * from products where barcode = :barcode")
     ProductEntity loadProductByBarcodeSync(String barcode);
 
     @Query("SELECT products.* FROM products JOIN productsFts ON (products.productID = productsFts.rowid) "
             + "WHERE productsFts MATCH :query")
     LiveData<List<ProductEntity>> searchAllProducts(String query);
+
+
 }

@@ -51,7 +51,10 @@ public class DataRepository {
         return mDatabase.productDao().loadProduct(productId);
     }
 
-    public LiveData<ProductEntity> searchProductBYBarcode(final String barcode) {
+    public LiveData<List<ProductEntity>> searchProductBYBarcode(final String barcode) {
+        return mDatabase.productDao().searchProductByBarcode(barcode);
+    }
+    public LiveData<ProductEntity> loadProductByBarcode(final String barcode) {
         return mDatabase.productDao().loadProductByBarcode(barcode);
     }
 
