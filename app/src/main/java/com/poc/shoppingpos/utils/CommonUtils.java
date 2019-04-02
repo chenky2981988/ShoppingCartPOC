@@ -69,4 +69,6 @@ public final class CommonUtils {
         DecimalFormat twoDForm = new DecimalFormat("#.##");
         return Double.valueOf(twoDForm.format(d));
     }
+
+
 }

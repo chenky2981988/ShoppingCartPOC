@@ -16,10 +16,10 @@
   -->
 
 <resources>
-    <string name="product_price">MRP : $%.2f</string>
-    <string name="selling_price">Offer Price : $%.2f</string>
+    <string name="product_price">MRP : Rs %.2f</string>
+    <string name="selling_price">Offer Price : Rs %.2f</string>
     <string name="avl_quantity">Available Quantity : %d</string>
-    <string name="grand_total">Grand Total : $%.2f</string>
-    <string name="qty_x_unit">%d X $%.2f</string>
-    <string name="item_wise_price">$%.2f</string>
+    <string name="grand_total">Grand Total : Rs %.2f</string>
+    <string name="qty_x_unit">%d X Rs %.2f</string>
+    <string name="item_wise_price">Rs %.2f</string>
 </resources>

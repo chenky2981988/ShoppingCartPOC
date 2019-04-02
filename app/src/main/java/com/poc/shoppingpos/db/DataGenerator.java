@@ -53,7 +53,7 @@ public class DataGenerator {
                 product.setProductID(id);
                 product.setProductName(FIRST[i] + " " + SECOND[j]);
                 product.setProductDescription(product.getProductName() + " " + DESCRIPTION[j]);
-                product.setMrp(CommonUtils.roundTwoDecimals(rnd.nextDouble()));
+                product.setMrp(CommonUtils.roundTwoDecimals(rnd.nextDouble() * 100));
                 product.setSellingPrice(product.getMrp() > 2 ? (product.getMrp() - 1) :product.getMrp());
                 String barcode = randomAlphaNumeric(8);
                 Log.d("Barcode",FIRST[i] + " " + SECOND[j] + " For Barcode : " + barcode);

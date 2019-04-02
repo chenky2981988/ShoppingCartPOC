@@ -7,12 +7,8 @@ import android.view.ViewGroup;
 
 import com.poc.shoppingpos.R;
 import com.poc.shoppingpos.models.CartItem;
-import com.poc.shoppingpos.models.SalebleProduct;
-import com.poc.shoppingpos.utils.CartHelper;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,9 +21,10 @@ public class CartRecycleViewAdapter extends RecyclerView.Adapter<CartItemViewHol
 
     private Context mContext;
     private List<CartItem> cartItemList;
-    public CartRecycleViewAdapter(Context context) {
+
+    public CartRecycleViewAdapter(Context context, List<CartItem> list) {
         this.mContext = context;
-        cartItemList = CartHelper.getCartInstance().getCartItems();
+        cartItemList = list;
     }
 
     @NonNull
@@ -46,7 +43,7 @@ public class CartRecycleViewAdapter extends RecyclerView.Adapter<CartItemViewHol
         holder.itemIdTv.setText(cartItem.getProduct().getBarcode());
         String qtyUnitRate = String.format(mContext.getResources().getString(R.string.qty_x_unit), cartItem.getQuantity(), cartItem.getProduct().getSellingPrice());
         holder.itemQtyRateTv.setText(qtyUnitRate);
-        holder.itemWisePriceTv.setText(String.format(mContext.getResources().getString(R.string.item_wise_price),cartItem.getItemTotal()));
+        holder.itemWisePriceTv.setText(String.format(mContext.getResources().getString(R.string.item_wise_price), cartItem.getItemTotal()));
     }
 
     @Override
