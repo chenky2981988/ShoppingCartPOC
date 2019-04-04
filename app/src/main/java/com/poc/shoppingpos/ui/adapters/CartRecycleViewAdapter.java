@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import com.poc.shoppingpos.R;
 import com.poc.shoppingpos.models.CartItem;
+import com.poc.shoppingpos.ui.interfaces.RecyclerViewButtonClickListener;
 
 import java.util.List;
 
@@ -19,20 +20,27 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class CartRecycleViewAdapter extends RecyclerView.Adapter<CartItemViewHolder> {
 
-    private Context mContext;
+    private RecyclerViewButtonClickListener mRecyclerViewButtonClickListener;
     private List<CartItem> cartItemList;
+    private Context mContext;
 
-    public CartRecycleViewAdapter(Context context, List<CartItem> list) {
-        this.mContext = context;
+    public CartRecycleViewAdapter(Context context, RecyclerViewButtonClickListener listener, List<CartItem> list) {
+        this.mRecyclerViewButtonClickListener = listener;
         cartItemList = list;
+        this.mContext = context;
     }
 
+    public void updateCart( List<CartItem> cartItemList){
+        this.cartItemList.clear();
+        this.cartItemList = cartItemList;
+        notifyDataSetChanged();
+    }
     @NonNull
     @Override
     public CartItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View view = inflater.inflate(R.layout.cart_item_layout, null);
-        return new CartItemViewHolder(view);
+        return new CartItemViewHolder(view,mRecyclerViewButtonClickListener);
     }
 
     @Override

@@ -17,8 +17,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Random;
 
 public final class CommonUtils {
 
@@ -70,5 +72,14 @@ public final class CommonUtils {
         return Double.valueOf(twoDForm.format(d));
     }
 
+    public static String getCurrentDate() {
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        return df.format(c);
+    }
+
+    public static String getRandomOrderID() {
+        return "OrderId" + String.valueOf(new Random().nextInt(10000));
+    }
 
 }

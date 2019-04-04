@@ -1,5 +1,6 @@
 package com.poc.shoppingpos.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.AutoCompleteTextView;
@@ -8,6 +9,7 @@ import android.widget.AutoCompleteTextView;
  * Created by Chirag Sidhiwala on 3/27/2019.
  * chirag.sidhiwala@capgemini.com
  */
+@SuppressLint("AppCompatCustomView")
 public class CustomAutoCompleteView extends AutoCompleteTextView {
 
     public CustomAutoCompleteView(Context context) {

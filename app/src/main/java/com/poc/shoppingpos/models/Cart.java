@@ -3,16 +3,19 @@ package com.poc.shoppingpos.models;
 import android.nfc.Tag;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.poc.shoppingpos.exception.ProductNotFoundException;
 import com.poc.shoppingpos.exception.QuantityOutOfRangeException;
+import com.poc.shoppingpos.utils.CommonUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import butterknife.internal.Utils;
 
@@ -27,6 +30,7 @@ public class Cart implements Parcelable {
     private Map<SalebleProduct, Integer> cartItemMap = new HashMap<>();
     private BigDecimal totalPrice = BigDecimal.ZERO;
     private int totalQuantity = 0;
+    private String orderID;
 
     /**
      * Add a quantity of a certain {@link SalebleProduct} product to this shopping cart
@@ -35,6 +39,9 @@ public class Cart implements Parcelable {
      * @param quantity the amount to be added
      */
     public void add(final SalebleProduct saleableProduct, int quantity) {
+        if(TextUtils.isEmpty(this.getOrderID())){
+            this.setOrderID(CommonUtils.getRandomOrderID());
+        }
         if (cartItemMap.containsKey(saleableProduct)) {
             cartItemMap.put(saleableProduct, cartItemMap.get(saleableProduct) + quantity);
         } else {
@@ -65,6 +72,7 @@ public class Cart implements Parcelable {
 
         totalQuantity = totalQuantity - productQuantity + quantity;
         totalPrice = totalPrice.subtract(productPrice).add(BigDecimal.valueOf(selableProduct.getSellingPrice()).multiply(BigDecimal.valueOf(quantity)));
+
     }
 
     /**
@@ -115,6 +123,15 @@ public class Cart implements Parcelable {
         cartItemMap.clear();
         totalPrice = BigDecimal.ZERO;
         totalQuantity = 0;
+        orderID = "";
+    }
+
+    public String getOrderID() {
+        return orderID;
+    }
+
+    public void setOrderID(String orderID) {
+        this.orderID = orderID;
     }
 
     /**
@@ -186,6 +203,7 @@ public class Cart implements Parcelable {
     protected Cart(Parcel in) {
         totalPrice = (BigDecimal) in.readValue(BigDecimal.class.getClassLoader());
         totalQuantity = in.readInt();
+        orderID = in.readString();
     }
     public Cart() {
 
@@ -200,6 +218,7 @@ public class Cart implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(totalPrice);
         dest.writeInt(totalQuantity);
+        dest.writeString(orderID);
     }
 
     @SuppressWarnings("unused")

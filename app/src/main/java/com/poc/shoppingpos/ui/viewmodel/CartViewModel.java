@@ -1,4 +1,4 @@
-package com.poc.shoppingpos.ui.fragment;
+package com.poc.shoppingpos.ui.viewmodel;
 
 import android.app.Application;
 
@@ -20,9 +20,6 @@ public class CartViewModel extends AndroidViewModel {
     public CartViewModel(@NonNull Application application) {
         super(application);
         mCart = CartHelper.getCartInstance();
-        // Initialize a Google Pay API client for an environment suitable for testing.
-        // It's recommended to create the PaymentsClient object inside of the onCreate method.
-
     }
 
     public int getTotalCartQuantity() {
@@ -32,11 +29,11 @@ public class CartViewModel extends AndroidViewModel {
         return 0;
     }
 
-    public BigDecimal getCartTotalAmount() {
+    public double getCartTotalAmount() {
         if (mCart != null) {
-            return mCart.getTotalPrice();
+            return mCart.getTotalPrice().doubleValue();
         }
-        return BigDecimal.ZERO;
+        return BigDecimal.ZERO.doubleValue();
     }
 
     public List<CartItem> getCartItems() {
@@ -44,6 +41,11 @@ public class CartViewModel extends AndroidViewModel {
             return mCart.getCartItems();
         }
         return new ArrayList<CartItem>();
+    }
+
+    public void removeItemFromCart(int position){
+        CartItem mCartItem = mCart.getCartItems().get(position);
+        mCart.remove(mCartItem.getProduct());
     }
 
 

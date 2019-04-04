@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+        <import type="com.poc.shoppingpos.utils.CommonUtils" />
+
+        <variable
+            name="orderConfirmationViewModel"
+            type="com.poc.shoppingpos.ui.viewmodel.OrderConfirmationViewModel" />
+
+        <variable
+            name="isPayBtnEnable"
+            type="boolean"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/order_details_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/order_details"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TableLayout
+            android:id="@+id/order_details_table"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:stretchColumns="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/order_details_tv">
+
+            <TableRow
+                android:padding="5dp"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="0.6"
+                    android:gravity="start|center_vertical"
+                    android:text="@string/order_date"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/order_date_tv"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.4"
+                    android:gravity="start|center_vertical"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:text="@{CommonUtils.getCurrentDate()}"
+                    android:textSize="18sp" />
+
+            </TableRow>
+
+            <TableRow
+                android:padding="5dp"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="0.6"
+                    android:gravity="start|center_vertical"
+                    android:text="@string/order_no"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/order_no_tv"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.4"
+                    android:gravity="start|center_vertical"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:text="@{orderConfirmationViewModel.getOrderId()}"
+                    android:textSize="18sp" />
+            </TableRow>
+
+            <TableRow android:padding="5dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="0.6"
+                    android:gravity="start|center_vertical"
+                    android:text="@string/order_total_quantity"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/order_total_quantity"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.4"
+                    android:gravity="start|center_vertical"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:text="@{@string/cart_total_item(orderConfirmationViewModel.getTotalItems())}"
+                    android:textSize="18sp" />
+            </TableRow>
+
+            <TableRow android:padding="5dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="0.6"
+                    android:gravity="start|center_vertical"
+                    android:text="@string/order_total"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/order_total_tv"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.4"
+                    android:gravity="start|center_vertical"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:text="@{@string/cart_total(orderConfirmationViewModel.getCartTotal())}"
+                    android:textSize="18sp" />
+            </TableRow>
+        </TableLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/select_payment_method"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/select_payment_mode"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/order_details_table" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/proceed_to_pay_btn"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/proceed_to_pay"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:enabled="@{isPayBtnEnable}"
+            android:clickable="@{isPayBtnEnable}"/>
+
+        <RadioGroup
+            android:id="@+id/payment_selection_radio_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/select_payment_method">
+
+            <RadioButton
+                android:id="@+id/paytm_radio_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableEnd="@mipmap/paytm_icon" />
+        </RadioGroup>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

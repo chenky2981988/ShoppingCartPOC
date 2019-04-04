@@ -4,12 +4,16 @@ public final class AppConstants {
 
     //Paytm Payment GateWay Constants
 
-    public static final String PAYTM_MID = "Capgem73247037907474";
-    public static final String PAYTM_MERCHANT_KEY = "zqzSLuVTvOZRYez5";
-    public static final String PAYTM_CHANNEL_ID = "WAP";
-    public static final String PAYTM_WEBSITE = "APPSTAGING";
-    public static final String PAYTM_INDUSTRY_TYPE_ID = "Retail";
-    public static final String PAYTM_CALLBACK_URL = "https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID=";
+    public static final String KEY_MID = "MID";
+    public static final String KEY_ORDER_ID = "ORDER_ID";
+    public static final String KEY_CHANNEL_ID = "CHANNEL_ID";
+    public static final String KEY_CUST_ID = "CUST_ID";
+    public static final String KEY_TXN_AMOUNT = "TXN_AMOUNT";
+
+    public static final String KEY_WEBSITE = "WEBSITE";
+    public static final String KEY_INDUSTRY_TYPE_ID = "INDUSTRY_TYPE_ID";
+    public static final String KEY_CALLBACK_URL = "CALLBACK_URL";
+    public static final String KEY_CHECKSUMHASH = "CHECKSUMHASH";
 
     public static final int API_STATUS_CODE_LOCAL_ERROR = 0;
 
