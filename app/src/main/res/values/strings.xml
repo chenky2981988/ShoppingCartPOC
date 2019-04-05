@@ -22,5 +22,8 @@
     <string name="order_total_quantity">Total Items :</string>
     <string name="select_payment_mode">Select Payment Mode</string>
     <string name="thank_you_msg">Thank you for Shppoing with us.\nVisit Again</string>
+
     <string name="home">Home</string>
+    <string name="show_qr_code_on_exit">Show QR Code on Exit</string>
+    <string name="shopping_pos_title">ShoppingPOS</string>
 </resources>

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.paytm.pgsdk.PaytmPGService;
 import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
 import com.poc.shoppingpos.R;
@@ -80,7 +81,7 @@ public class OrderConfirmationFragment extends BaseFragment implements RadioGrou
     @OnClick(R.id.proceed_to_pay_btn)
     public void onProceedToPayClicked() {
         if (ContextCompat.checkSelfPermission(getBaseActivity(), Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS}, 101);
+            requestPermissions(new String[]{Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS}, REQUEST_SMS_READ_PERMISSION);
         } else {
 //            CartHelper.getCartInstance().clear();
 //            getBaseActivity().invalidateOptionsMenu();
@@ -121,7 +122,7 @@ public class OrderConfirmationFragment extends BaseFragment implements RadioGrou
             if (!TextUtils.isEmpty(txnStatus) && txnStatus.equalsIgnoreCase(AppConstants.TXN_SUCCESS)) {
                 CartHelper.getCartInstance().clear();
                 getBaseActivity().invalidateOptionsMenu();
-                replaceFragment(PaymentSuccessFragment.newInstance(), false, ProductDetailsFragment.class.getName());
+                replaceFragment(PaymentSuccessFragment.newInstance(inResponse), true, PaymentSuccessFragment.class.getSimpleName());
             }
             Toast.makeText(getBaseActivity().getApplicationContext(), "Payment Transaction response " + inResponse.get(AppConstants.KEY_RESPMSG), Toast.LENGTH_LONG).show();
         }

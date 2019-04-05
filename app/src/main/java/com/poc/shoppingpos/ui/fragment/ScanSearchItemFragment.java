@@ -88,7 +88,7 @@ public class ScanSearchItemFragment extends BaseFragment implements AdapterView.
         beepManager = new BeepManager(getBaseActivity());
 
         if (!getBaseActivity().hasPermission(Manifest.permission.CAMERA)) {
-            getBaseActivity().requestPermissionsSafely(new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
         }
         return view;
     }
