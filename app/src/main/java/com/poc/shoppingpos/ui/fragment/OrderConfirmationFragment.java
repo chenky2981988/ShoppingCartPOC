@@ -27,7 +27,6 @@ import java.util.Random;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
@@ -55,7 +54,6 @@ public class OrderConfirmationFragment extends BaseFragment implements RadioGrou
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         mOrderConfirmationFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.order_confirmation_layout, container, false);
-        // View view = inflater.inflate(R.layout.order_confirmation_layout, container, false);
         ButterKnife.bind(this, mOrderConfirmationFragmentBinding.getRoot());
         return mOrderConfirmationFragmentBinding.getRoot();
     }
@@ -84,6 +82,9 @@ public class OrderConfirmationFragment extends BaseFragment implements RadioGrou
         if (ContextCompat.checkSelfPermission(getBaseActivity(), Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS}, 101);
         } else {
+//            CartHelper.getCartInstance().clear();
+//            getBaseActivity().invalidateOptionsMenu();
+//            replaceFragment(PaymentSuccessFragment.newInstance(), true, ProductDetailsFragment.class.getName());
             sendOrderToPaytm();
         }
     }
@@ -105,28 +106,6 @@ public class OrderConfirmationFragment extends BaseFragment implements RadioGrou
             PaymentManager paymentManager = PaymentManager.getInstance();
 
             HashMap<String, String> paytmParams = PaymentUtils.generatePaymentParams(mViewModel.getOrderId(), custId, mViewModel.getCartTotal());
-//            paytmParams.put("MID", AppConstants.PAYTM_MID);
-//            paytmParams.put("ORDER_ID", orderId);
-//            paytmParams.put("CHANNEL_ID", AppConstants.PAYTM_CHANNEL_ID);
-//            paytmParams.put("CUST_ID", custId);
-////            paytmParams.put("MOBILE_NO", mobileNo);
-////            paytmParams.put("EMAIL", email);
-//            Log.d("TAG", "Trasaction amount : " + txnAmount);
-//            paytmParams.put("TXN_AMOUNT", txnAmount);
-//            paytmParams.put("WEBSITE", AppConstants.PAYTM_WEBSITE);
-//            paytmParams.put("INDUSTRY_TYPE_ID", AppConstants.PAYTM_INDUSTRY_TYPE_ID);
-//            paytmParams.put("CALLBACK_URL", AppConstants.PAYTM_CALLBACK_URL + orderId);
-//            TreeMap<String, String> checksumTreeMap = new TreeMap<>();
-//            checksumTreeMap.putAll(paytmParams);
-//            Security.insertProviderAt(Conscrypt.newProvider("SunJCE"), 2);
-//            String paytmChecksum = CheckSumServiceHelper.getCheckSumServiceHelper().genrateCheckSum(merchantKey, checksumTreeMap);
-//            Log.d("TAG", "PaytmCheckSum : " + paytmChecksum);
-//            paytmParams.put("CHECKSUMHASH", paytmChecksum);
-//            PaytmOrder paytmOrder = new PaytmOrder(paytmParams);
-//
-//            PaytmClientCertificate Certificate = new PaytmClientCertificate("Suruchi@2981988", "");
-//            mPaytmPGService.initialize(paytmOrder, Certificate);
-
             paymentManager.startTransaction(getBaseActivity(), paytmParams, this);
 
         } catch (Exception e) {
@@ -142,7 +121,7 @@ public class OrderConfirmationFragment extends BaseFragment implements RadioGrou
             if (!TextUtils.isEmpty(txnStatus) && txnStatus.equalsIgnoreCase(AppConstants.TXN_SUCCESS)) {
                 CartHelper.getCartInstance().clear();
                 getBaseActivity().invalidateOptionsMenu();
-                getBaseActivity().onBackPressed();
+                replaceFragment(PaymentSuccessFragment.newInstance(), false, ProductDetailsFragment.class.getName());
             }
             Toast.makeText(getBaseActivity().getApplicationContext(), "Payment Transaction response " + inResponse.get(AppConstants.KEY_RESPMSG), Toast.LENGTH_LONG).show();
         }

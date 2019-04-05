@@ -115,7 +115,7 @@ public abstract class BaseFragment extends Fragment {
             fragmentTransaction.addToBackStack(backStackTAG);
         }
         fragmentTransaction.replace(R.id.fragment_frame_layout,
-                fragment, backStackTAG).commit();
+                fragment, backStackTAG).commitAllowingStateLoss();
     }
 
     public interface Callback {

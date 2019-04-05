@@ -82,9 +82,9 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseFrag
         }
     }
 
-    public void replaceFragment(BaseFragment fragment, boolean isAddToBackStack, String backStackTAG){
+    public void replaceFragment(BaseFragment fragment, boolean isAddToBackStack, String backStackTAG) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        if(isAddToBackStack){
+        if (isAddToBackStack) {
             fragmentTransaction.addToBackStack(backStackTAG);
         }
         fragmentTransaction.replace(R.id.fragment_frame_layout,
@@ -92,10 +92,16 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseFrag
     }
 
     public void onBackPressed() {
-        if (getFragmentManager().getBackStackEntryCount() == 0) {
-            super.onBackPressed();
+        if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+            CommonUtils.showExitDialog(this);
         } else {
-            getFragmentManager().popBackStack();
+            getSupportFragmentManager().popBackStack();
+        }
+    }
+
+    public void goToHome() {
+        for (int i = 0; i < getSupportFragmentManager().getBackStackEntryCount(); i++) {
+            getSupportFragmentManager().popBackStack();
         }
     }
 }
