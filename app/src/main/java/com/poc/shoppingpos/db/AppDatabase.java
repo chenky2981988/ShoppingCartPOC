@@ -1,6 +1,7 @@
 package com.poc.shoppingpos.db;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.poc.shoppingpos.AppExecutors;
 import com.poc.shoppingpos.db.converter.DateConverter;
@@ -37,8 +38,8 @@ public abstract class AppDatabase extends RoomDatabase {
         if (sInstance == null) {
             synchronized (AppDatabase.class) {
                 if (sInstance == null) {
-                    sInstance = buildDatabase(context.getApplicationContext(), executors);
                     sInstance.updateDatabaseCreated(context.getApplicationContext());
+                    sInstance = buildDatabase(context.getApplicationContext(), executors);
                 }
             }
         }
@@ -52,6 +53,7 @@ public abstract class AppDatabase extends RoomDatabase {
      */
     private static AppDatabase buildDatabase(final Context appContext,
                                              final AppExecutors executors) {
+        Log.d("TAG", "In buildDatabase");
         return Room.databaseBuilder(appContext, AppDatabase.class, DATABASE_NAME)
                 .addCallback(new Callback() {
                     @Override
@@ -60,6 +62,7 @@ public abstract class AppDatabase extends RoomDatabase {
                         executors.diskIO().execute(() -> {
                             // Add a delay to simulate a long-running operation
                             addDelay(4000);
+                            Log.d("TAG", "In databaseBuilder Call Back");
                             // Generate the data for pre-population
                             AppDatabase database = AppDatabase.getInstance(appContext, executors);
                             List<ProductEntity> products = DataGenerator.generateProducts();
@@ -91,7 +94,10 @@ public abstract class AppDatabase extends RoomDatabase {
      */
     private void updateDatabaseCreated(final Context context) {
         if (context.getDatabasePath(DATABASE_NAME).exists()) {
+            Log.d("TAG", "setDatabaseCreated");
             setDatabaseCreated();
+        } else {
+            Log.d("TAG", "DB doesn't exists");
         }
     }
 
@@ -106,7 +112,7 @@ public abstract class AppDatabase extends RoomDatabase {
         return mIsDatabaseCreated;
     }
 
-    private static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+    public static final Migration MIGRATION_1_2 = new Migration(1, 2) {
 
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {

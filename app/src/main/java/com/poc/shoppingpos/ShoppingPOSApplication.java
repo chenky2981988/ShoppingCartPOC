@@ -8,6 +8,7 @@ import androidx.multidex.MultiDexApplication;
 public class ShoppingPOSApplication extends MultiDexApplication {
 
     private AppExecutors mAppExecutors;
+
     @Override
     public void onCreate() {
         super.onCreate();
